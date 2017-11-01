@@ -1,3 +1,10 @@
+mailer可用于低版本的node.js  如：0.10.29
+
+npm install mailer
+
+var email = require("mailer");    
+
+
 //发送邮件
 function emailManage(data, response) {
         if(data.open == 0){
