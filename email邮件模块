@@ -1,0 +1,55 @@
+//发送邮件
+function emailManage(data, response) {
+        if(data.open == 0){
+            data.open = '开启';
+        } else {
+            data.open = '关闭';
+        }
+        response.asynchronous = 1;
+        email.send(
+            {
+                ssl: true,
+                host: "smtp.qq.com",                //发送 smtp.qq.com，接收 pop.qq.com
+                to: "1@163,2@163.com,3@163.com",    //接收邮件地址 “,”分隔可加多个邮件地址
+                from: "123@qq.com",                 //你的发件邮箱账号
+                subject: "账号关闭提醒",             //邮件主题
+                body: "用户："+data.name+"\n"+      //邮件内容  \n 换行
+                '时间：'+moment().format("YYYY-MM-DD HH:mm:ss")+"\n"+
+                '操作：'+data.open+' 一键操作',
+                authentication: "login",            //认证
+                username: "123@qq.com",             //你的发件邮箱账号
+                password: "123456",                 //你的发件邮箱授权密码
+                debug: false
+            },
+            function (err, result) {
+                if (err) {
+                    console.log("the err:" + err);
+                    response.write(JSON.stringify({
+                        "提示信息": "发送失败",
+                        "失败原因": "数据异常"
+                    }));
+                    response.end();
+                } else {
+                    if (result) {
+                        console.log("发送成功");
+                        response.write(JSON.stringify({
+                            "提示信息": "发送成功"
+                        }));
+                        response.end();
+                    } else {
+                        response.write(JSON.stringify({
+                            "提示信息": "发送失败",
+                            "失败原因": "数据异常"
+                        }));
+                        response.end();
+                    }
+                }
+            }
+        );
+    }
+
+
+
+
+
+
