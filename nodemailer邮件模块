@@ -1,0 +1,30 @@
+  nodemailer好像不支持低版本的node.js
+  npm install nodemailer
+  
+  var nodemailer = require('nodemailer');
+  
+  //发送邮件
+  function get_mail(data){
+        var transporter = nodemailer.createTransport({
+            service: '163',
+            auth: {
+                user: '123@163.com',            //你的发件邮箱账号
+                pass: '123456'                  //你的发件邮箱账号
+            }
+        });
+        var mailOptions = {
+            from: "123@163.com",                //你的发件邮箱账号
+            to: "1@163,2@163.com,3@163.com",    //接收邮件地址 “,”分隔可加多个邮件地址
+            subject: '变更提醒',                 //邮件肢体
+            html: '地址变更啦'                   //邮件内容
+        };
+        transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+                console.log(error);
+            }else{
+                console.log('Message sent: ' + info.response);
+            }
+        });
+    }
+    
+    
